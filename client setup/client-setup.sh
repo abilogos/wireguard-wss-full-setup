@@ -10,6 +10,7 @@ then
     WG_PORT=51820
 fi
 echo "please provide client connection name: [client]"
+echo "the connection file should be named as connection name + .conf extention (example: client.conf).\n please rename the file to be compatible with providing connection name"
 read CLIENT_CONNECTION_NAME
 if [ -z "$CLIENT_CONNECTION_NAME"  ]
 then
@@ -35,6 +36,9 @@ REMOTE_PORT=$WG_PORT
 EOF
 sudo mv ./client.wstunnel /etc/wireguard/$CLIENT_CONNECTION_NAME.wstunnel
 
+sudo cp ./$CLIENT_CONNECTION_NAME.conf /etc/wireguard/$CLIENT_CONNECTION_NAME.conf
 
-
+echo "alias vpn-up='sudo wg-quick up /etc/wireguard/$CLIENT_CONNECTION_NAME.conf'" | tee -a ~/.zshrc | tee -a ~/.bashrc
+echo "alias vpn-down='sudo wg-quick down /etc/wireguard/$CLIENT_CONNECTION_NAME.conf'" | tee -a ~/.zshrc | tee -a ~/.bashrc
+source ~/.zshrc || source ~/.bashrc
 
