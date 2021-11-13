@@ -27,7 +27,8 @@ After=network.target
 Type=simple
 User=nobody
 ExecStart=$WS_SERVER_PATH -v --server wss://0.0.0.0:$WSS_PORT --restrictTo=127.0.0.1:$WG_PORT
-Restart=no
+Restart=always
+RuntimeMaxSec=14400
 
 [Install]
 WantedBy=multi-user.target
